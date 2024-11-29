@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File to Azure Blob</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Upload de CV</h1>
+        
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="cv" accept=".pdf" required>
+            <button type="submit">Uploader</button>`
+        </form>
+        
+        <div id="result">
+            <p id="uploadStatus"></p>
+            <p id="fileUrl"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
