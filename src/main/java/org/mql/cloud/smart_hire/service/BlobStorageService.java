@@ -1,4 +1,4 @@
-package org.mql.cloud.smart_hire.storageblob;
+package org.mql.cloud.smart_hire.service;
 import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;

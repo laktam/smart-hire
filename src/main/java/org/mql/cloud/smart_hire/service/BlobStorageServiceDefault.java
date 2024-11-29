@@ -1,9 +1,10 @@
-package org.mql.cloud.smart_hire.storageblob;
+package org.mql.cloud.smart_hire.service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,9 @@ import jakarta.annotation.PostConstruct;
 
 @Service
 public class BlobStorageServiceDefault implements BlobStorageService {
+	
+	@Autowired
+	private AzureDocumentIntelligenceService azureDocIntelligentService;
 
 	@Value("${azure.storage.connection-string}")
 	private String connectionString;
@@ -42,7 +46,12 @@ public class BlobStorageServiceDefault implements BlobStorageService {
 			blobClient.upload(inputStream, file.getSize(), true);
 			blobClient.setHttpHeaders(new BlobHttpHeaders().setContentType("application/pdf"));
 		}
-
+		try {
+			azureDocIntelligentService.analyzeResume(file);
+		} catch (InterruptedException | IOException e) {
+			e.printStackTrace();
+		}
+		
 		return blobClient.getBlobUrl();
 	}
 }

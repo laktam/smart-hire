@@ -24,7 +24,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     .then(data => {
         if (data.url) {
             uploadStatus.textContent = "Téléchargement réussi!";
-            //fileUrl.innerHTML = `<strong>URL du fichier téléchargé :</strong> <a href="${data.url}" target="_blank">${data.url}</a>`;
+            fileUrl.innerHTML = `<strong>URL du fichier téléchargé :</strong> <a href="${data.url}" target="_blank">${data.url}</a>`;
         } else {
             uploadStatus.textContent = "Erreur lors du téléchargement.";
         }

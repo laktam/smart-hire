@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
-import org.mql.cloud.smart_hire.storageblob.BlobStorageService;
+import org.mql.cloud.smart_hire.service.BlobStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
