@@ -15,6 +15,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(event)
     const uploadStatus = document.getElementById('uploadStatus');
     const fileUrl = document.getElementById('fileUrl');
     uploadStatus.textContent = "Téléchargement en cours...";
+    fileUrl.innerHTML = "";
 
     fetch('/upload/cv', {
         method: 'POST',
