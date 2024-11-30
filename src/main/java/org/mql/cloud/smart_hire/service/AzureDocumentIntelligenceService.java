@@ -2,6 +2,8 @@ package org.mql.cloud.smart_hire.service;
 
 import com.azure.ai.formrecognizer.documentanalysis.DocumentAnalysisClient;
 import com.azure.ai.formrecognizer.documentanalysis.DocumentAnalysisClientBuilder;
+//import com.azure.ai.formrecognizer.documentanalysis.implementation.models.DocumentField;
+import com.azure.ai.formrecognizer.documentanalysis.models.DocumentField;
 import com.azure.core.credential.AzureKeyCredential;
 import com.azure.core.util.BinaryData;
 import com.azure.core.util.polling.SyncPoller;
@@ -15,6 +17,8 @@ import com.azure.ai.formrecognizer.documentanalysis.models.OperationResult;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @Service
 public class AzureDocumentIntelligenceService {
@@ -52,7 +56,7 @@ public class AzureDocumentIntelligenceService {
 				.credential(new AzureKeyCredential(apiKey)).buildClient();
 
 		// Begin analyzing the document with the prebuilt model
-		AnalyzeResult result = client.beginAnalyzeDocument("prebuilt-document", resumeData).getFinalResult(); // Get
+		AnalyzeResult result = client.beginAnalyzeDocument("resume-model-2", resumeData).getFinalResult(); // Get
 																													// the
 																													// final
 																													// result
@@ -65,8 +69,23 @@ public class AzureDocumentIntelligenceService {
 //
 //        	AnalyzeResult result = analyzeReceiptPoller.getFinalResult();
 
-		System.out.println(" resultat d'analyze du cv : " + result);
-		System.out.println(" content :::: " + result.getContent());
+//		System.out.println(" resultat d'analyze du cv : " + result);
+//		System.out.println(" content :::: " + result.getContent());
+		// Access labeled fields
+	    result.getDocuments().forEach(document -> {
+	        System.out.println("Document Type: " + document.getDocType());
+
+	        // Iterate through labeled fields
+	        for (Entry<String, DocumentField> fieldEntry : document.getFields().entrySet()) {
+	            String fieldName = fieldEntry.getKey();
+	            DocumentField fieldValue = fieldEntry.getValue();
+
+	            if (fieldValue != null) {
+	                System.out.printf("Field: %s, Value: %s%n", fieldName, fieldValue.getValueAsString());
+	            }
+	        }
+	    }); 
+	    
 		return result;
 	}
 }
