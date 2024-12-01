@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumes Collection</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resume-list.css}">
+</head>
+<body>
+
+<h1>Resumes Collection</h1>
+
+<!-- Links to filter resumes by post -->
+ 
+<div class="filter-links">
+    <span th:each="post, iterStat : ${distinctPosts}">
+        <a th:href="@{/resumes/{post}(post=${post})}" th:text="${post}"></a>
+        <span th:if="${!iterStat.last}"> | </span>
+    </span>
+</div>
+
+ 
+
+
+<h2>Resumes for Post: <span th:text="${post}">Fullstack</span></h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Location</th>
+            <th>Education</th>
+            <th>Experience</th>
+            <th>Skills</th>
+            <th>Languages</th>
+            <th>PDF Link</th>
+        </tr>
+    </thead>
+
+	<tbody>
+	    <tr th:each="resume : ${resumes}">
+	        <td th:text="${resume.fullName}"></td>
+	        <td th:text="${resume.email}"></td>
+	        <td th:text="${resume.phoneNumber}"></td>
+	        <td th:text="${resume.location}"></td>
+	        <td th:text="${resume.education}"></td>
+	        <td th:text="${resume.experience}"></td>
+	        <td th:text="${resume.skills}"></td>
+	        <td th:text="${resume.languages}"></td>
+	        <td><a th:href="${resume.pdfLink}" target="_blank">View PDF</a></td>
+	        <td th:text="${resume.post}"></td>
+	    </tr>
+	</tbody>
+</table>
+</body>
+</html>
