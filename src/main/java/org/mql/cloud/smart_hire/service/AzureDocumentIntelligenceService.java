@@ -72,19 +72,7 @@ public class AzureDocumentIntelligenceService {
 //		System.out.println(" resultat d'analyze du cv : " + result);
 //		System.out.println(" content :::: " + result.getContent());
 		// Access labeled fields
-	    result.getDocuments().forEach(document -> {
-	        System.out.println("Document Type: " + document.getDocType());
-
-	        // Iterate through labeled fields
-	        for (Entry<String, DocumentField> fieldEntry : document.getFields().entrySet()) {
-	            String fieldName = fieldEntry.getKey();
-	            DocumentField fieldValue = fieldEntry.getValue();
-
-	            if (fieldValue != null) {
-	                System.out.printf("Field: %s, Value: %s%n", fieldName, fieldValue.getValueAsString());
-	            }
-	        }
-	    }); 
+	    
 	    
 		return result;
 	}
