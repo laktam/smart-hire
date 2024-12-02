@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
+import org.mql.cloud.smart_hire.model.Post;
 import org.mql.cloud.smart_hire.service.ApplicationService;
 import org.mql.cloud.smart_hire.service.BlobStorageService;
+import org.mql.cloud.smart_hire.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
-@RequestMapping("/application")
+@RequestMapping("/apply")
 public class ApplicationsController {
 	
 
@@ -25,11 +27,14 @@ public class ApplicationsController {
 	    private BlobStorageService blobStorageService;
 	    @Autowired
 	    private ApplicationService applicationService;
+	    @Autowired
+	    private PostService postService;
 
 	    @PostMapping("/{post}/upload")
-	    public ResponseEntity<Map<String, String>> uploadCV(@PathVariable("post") String post, @RequestParam("cv") MultipartFile file) {
+	    public ResponseEntity<Map<String, String>> uploadCV(@PathVariable("post") String postName, @RequestParam("cv") MultipartFile file) {
 	        try {
 	            String fileUrl = blobStorageService.uploadFile(file);
+	            Post post = postService.getPostByName(postName);
 	            applicationService.addApplication(post, file, fileUrl);
 	            
 	            return ResponseEntity.ok(Collections.singletonMap("url", fileUrl));
