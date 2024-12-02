@@ -1,5 +1,176 @@
+/* General page styling */
 body {
     font-family: Arial, sans-serif;
+    line-height: 1.6;
+    /*background-color: #f4f4f9;*/
+    color: #333;
+    margin: 10;
+    padding: 0;
+}
+
+/* Navigation Bar Styling */
+nav {
+    background-color: #333;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 100%; /* Ensure nav spans full width */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    display: block; /* Ensures clickable area for links */
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+/* Container Styling */
+.container, .resume-details {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    text-align: center;
+    width: 80%;
+}
+
+/* Headings Styling */
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+h2 {
+    font-size: 20px;
+    color: #333;
+}
+
+/* Input and Button Styling */
+input[type="file"] {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: gray;
+}
+
+/* Upload Status Styling */
+#result {
+    margin-top: 20px;
+}
+
+#uploadStatus {
+    font-size: 16px;
+}
+
+#fileUrl {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #007bff;
+    word-wrap: break-word;
+}
+
+/* Filter Links */
+.filter-links {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.filter-links a {
+    text-decoration: none;
+    color: #007bff;
+    padding: 5px 10px;
+    margin: 0 5px;
+}
+
+.filter-links a:hover {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+td a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+/* Back Link Styling */
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/*body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
     background-color: #f4f4f9;
     display: flex;
     justify-content: center;
@@ -55,3 +226,6 @@ button:hover {
     color: #007bff;
     word-wrap: break-word;
 }
+*/
+
+

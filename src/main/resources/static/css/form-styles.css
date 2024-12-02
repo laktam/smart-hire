@@ -1,0 +1,30 @@
+/* General form styling */
+form#postForm {
+    max-width: 600px;
+    margin: 20px auto;
+   
+    
+    font-family: Arial, sans-serif;
+}
+
+/* Label styling */
+form#postForm label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Input and textarea styling */
+form#postForm input[type="text"],
+form#postForm textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+
+
