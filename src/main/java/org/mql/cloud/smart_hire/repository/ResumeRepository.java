@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-
+@Repository
 public interface ResumeRepository extends MongoRepository<Resume, String>{
 	List<Resume> findByPost(String post);
 	@Query(value = "{}", fields = "{'_id' : 0, 'post' : 1}")
