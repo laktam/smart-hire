@@ -23,6 +23,7 @@ public class Resume {
     private String url;
     private String pdfLink;  
     private String post; // post de candidature
+    private String matchingScore; // this is how much this application match the post
 
     public Resume() {
 	}
@@ -145,5 +146,13 @@ public class Resume {
     
     public String getPost() {
 		return post;
+	}
+    
+    public String getMatchingScore() {
+		return matchingScore;
+	}
+    
+    public void setMatchingScore(String matchingScore) {
+		this.matchingScore = matchingScore;
 	}
 }
