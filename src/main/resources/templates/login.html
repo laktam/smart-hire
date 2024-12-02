@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Details</title>
+<link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+	<div th:replace="index :: navbar"></div>
+
+
+	<div class="container">
+		<p id="message"></p>
+		<form id="loginForm">
+			<label for="username">Username:</label> <input type="text"
+				id="username" required> <br> <label for="password">Password:</label>
+			<input type="password" id="password" required> <br>
+			<button id="loginButton" type="submit">Login</button>
+		</form>
+
+		<button id="logoutButton" style="display: none;">Logout</button>
+	</div>
+	<script src="js/login.js"></script>
+</body>
+</html>

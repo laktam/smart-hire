@@ -1,26 +1,42 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload File to Azure Blob</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>Applications Management</title>
+<link rel="stylesheet" th:href="@{/styles.css}">
+<link rel="stylesheet" th:href="@{/css/form-styles.css}">
 </head>
 <body>
-    <div class="container">
-        <h1>Upload de CV</h1>
-        
-        <form id="uploadForm" enctype="multipart/form-data">
-            <input type="file" id="fileInput" name="cv" accept=".pdf" required>
-            <button type="submit">Uploader</button>`
-        </form>
-        
-        <div id="result">
-            <p id="uploadStatus"></p>
-            <p id="fileUrl"></p>
-        </div>
-    </div>
 
-    <script src="script.js"></script>
+	<div th:fragment="navbar">
+		<nav>
+			<ul>
+				<li><a href="/" id="homeLink" style="display: none">Home</a></li>
+				<li><a href="/resumes" id="applicationsLink" style="display: none">Applications</a></li>
+				<li><a href="/offers">Offers</a></li>
+				<li><a href="/apply">Apply</a></li>
+				<li><a href="/login" id="loginLink">Login</a><li>
+			</ul>
+		</nav>
+	</div>
+
+
+	<div class="container">
+		<div id="responseMessage"></div>
+
+		<form id="postForm">
+			<label for="postName">Post Name:</label> <input type="text"
+				id="postName" name="postName" required /><br> <br> <label
+				for="postDescription">Post Description:</label>
+			<textarea id="postDescription" name="postDescription" required rows="15"></textarea>
+			<br> <br>
+			<button type="submit">Add Post</button>
+		</form>
+	</div>
+
+
+	<script src="js/login.js"></script>
+	<script src="js/add-post.js"></script>
 </body>
 </html>

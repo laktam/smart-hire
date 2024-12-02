@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File to Azure Blob</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<div th:replace="index :: navbar"></div>
+
+    <div class="container">
+         <h1>Upload a pdf Resume</h1>
+        <div>
+        	<label for="postSelect">Select a post:</label>
+            <select id="postSelect" name="post" required>
+                <option value="" disabled selected>-- Select post --</option>
+                <option th:each="post : ${distinctPosts}" th:value="${post}" th:text="${post}"></option>
+            </select>
+        </div>
+        <form id="uploadForm" enctype="multipart/form-data">
+            
+            
+            
+            <!-- File input -->
+            <input type="file" id="fileInput" name="cv" accept=".pdf" required>
+            
+            <button type="submit">Uploader</button>
+        </form>
+        
+        <div id="result">
+            <p id="uploadStatus"></p>
+            <p id="fileUrl"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Details</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<div th:replace="index :: navbar"></div>
+
+
+<h1>Resume Details</h1>
+
+<table>
+    <tr>
+        <th>Full Name:</th>
+        <td th:text="${resume.fullName}"></td>
+    </tr>
+    <tr>
+        <th>Email:</th>
+        <td th:text="${resume.email}"></td>
+    </tr>
+    <tr>
+        <th>Phone Number:</th>
+        <td th:text="${resume.phoneNumber}"></td>
+    </tr>
+    <tr>
+        <th>Location:</th>
+        <td th:text="${resume.location}"></td>
+    </tr>
+    <tr>
+        <th>Matching Score:</th>
+        <td th:utext="${resume.matchingScore}"></td>
+    </tr>
+    <tr>
+        <th>Education:</th>
+        <td th:utext="${resume.education}"></td>
+    </tr>
+    <tr>
+        <th>Experience:</th>
+        <td th:utext="${resume.experience}"></td>
+    </tr>
+    <tr>
+        <th>Skills:</th>
+        <td th:utext="${resume.skills}"></td>
+    </tr>
+    <tr>
+        <th>Languages:</th>
+        <td th:utext="${resume.languages}"></td>
+    </tr>
+    <tr>
+        <th>PDF Link:</th>
+        <td><a th:href="${resume.pdfLink}" target="_blank">View PDF</a></td>
+    </tr>
+</table>
+
+<script src="js/login.js"></script>
+</body>
+</html>

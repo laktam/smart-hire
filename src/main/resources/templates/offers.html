@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres d'Emploi</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<div th:replace="index :: navbar"></div>
+
+<div class="container">
+    <h1>Job Offers</h1>
+    <div class="offers">
+    <!-- Loop over posts -->
+    <div th:each="post : ${distinctPosts}" class="offer">
+        <a href="/apply"><h2 th:text="${post.postName}"></h2></a>
+        <p th:utext="${post.postDescription}"></p>
+    </div>
+</div>
+</div>
+
+<!-- Modal pour uploader le CV 
+<div id="uploadModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeUploadModal()">&times;</span>
+        <h2 id="modalTitle">Apply</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="fileInput">Uploader votre CV au format PDF :</label>
+            <input type="file" id="fileInput" name="cv" accept=".pdf" required>
+            <button type="submit">Soumettre</button>
+        </form>
+    </div>
+</div>
+-->
+
+<div id="uploadModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeUploadModal()">&times;</span>
+        <h2 id="modalTitle">Apply</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="fileInput">Upload your CV (PDF format):</label>
+            <input type="file" id="fileInput" name="cv" accept=".pdf" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+//Open the modal with the job name passed as a parameter
+function openUploadModal(postTitle) {
+    const modal = document.getElementById('uploadModal');
+    const modalTitle = document.getElementById('modalTitle');
+    
+    // Set the modal title to the job title
+    modalTitle.textContent = `Apply For: ${postTitle}`;
+    
+    // Store the post title in a hidden input or somewhere for form submission
+    const postInput = document.createElement('input');
+    postInput.type = 'hidden';
+    postInput.name = 'jobTitle';
+    postInput.value = postTitle;
+    document.getElementById('uploadForm').appendChild(postInput);
+
+    // Show the modal
+    modal.style.display = 'block';
+}
+
+// Close the modal
+function closeUploadModal() {
+    const modal = document.getElementById('uploadModal');
+    modal.style.display = 'none';
+
+    // Optionally, remove the hidden input after closing the modal
+    const postInput = document.querySelector('input[name="jobTitle"]');
+    if (postInput) {
+        postInput.remove();
+    }
+}
+
+// Handle form submission
+document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please select a PDF resume.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('cv', file);
+    const postTitle = document.querySelector('input[name="jobTitle"]').value;  // Get job title from hidden input
+    formData.append('jobTitle', postTitle);
+
+    const uploadStatus = document.getElementById('uploadStatus');
+    uploadStatus.textContent = "Analyzing application...";
+
+    // Make the upload request
+    fetch(`apply/${postTitle}/upload`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.url) {
+            uploadStatus.textContent = "Application submitted successfully!";
+            // Optionally, display the uploaded file URL
+            const fileUrl = document.getElementById('fileUrl');
+            fileUrl.innerHTML = `<strong>Uploaded file URL:</strong> <a href="${data.url}" target="_blank">${data.url}</a>`;
+        } else {
+            uploadStatus.textContent = "Error submitting application.";
+        }
+    })
+    .catch(error => {
+        uploadStatus.textContent = "Error submitting application.";
+        console.error('Error:', error);
+    });
+});
+</script>
+ <script src="js/login.js"></script>
+<style>
+    .container {
+        padding: 20px;
+    }
+
+    .offers {
+        margin-top: 20px;
+    }
+
+    .offer {
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .offer h2 {
+        margin: 0 0 10px;
+    }
+
+    .offer p {
+        margin: 0 0 10px;
+    }
+
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+</style>
+</body>
+</html>

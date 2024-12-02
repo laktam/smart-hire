@@ -4,23 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resumes Collection</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/resume-list.css}">
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
 
+<div th:replace="index :: navbar"></div>
 <h1>Resumes Collection</h1>
 
 <!-- Links to filter resumes by post -->
- 
 <div class="filter-links">
     <span th:each="post, iterStat : ${distinctPosts}">
         <a th:href="@{/resumes/{post}(post=${post})}" th:text="${post}"></a>
         <span th:if="${!iterStat.last}"> | </span>
     </span>
 </div>
-
- 
-
 
 <h2>Resumes for Post: <span th:text="${post}">Fullstack</span></h2>
 
@@ -31,28 +28,22 @@
             <th>Email</th>
             <th>Phone Number</th>
             <th>Location</th>
-            <th>Education</th>
-            <th>Experience</th>
-            <th>Skills</th>
-            <th>Languages</th>
-            <th>PDF Link</th>
+            <th>Matching Score</th>
+            <th>More Details</th>
         </tr>
     </thead>
-
-	<tbody>
-	    <tr th:each="resume : ${resumes}">
-	        <td th:text="${resume.fullName}"></td>
-	        <td th:text="${resume.email}"></td>
-	        <td th:text="${resume.phoneNumber}"></td>
-	        <td th:text="${resume.location}"></td>
-	        <td th:text="${resume.education}"></td>
-	        <td th:text="${resume.experience}"></td>
-	        <td th:text="${resume.skills}"></td>
-	        <td th:text="${resume.languages}"></td>
-	        <td><a th:href="${resume.pdfLink}" target="_blank">View PDF</a></td>
-	        <td th:text="${resume.post}"></td>
-	    </tr>
-	</tbody>
+    <tbody>
+        <tr th:each="resume, iterStat : ${resumes}">
+            <td th:text="${resume.fullName}"></td>
+            <td th:text="${resume.email}"></td>
+            <td th:text="${resume.phoneNumber}"></td>
+            <td th:text="${resume.location}"></td>
+            <td th:utext="${resume.matchingScore}"></td>
+            <td><a th:href="@{/resume/details/{id}(id=${resume.id})}" th:text="'View Details'"></a></td>
+        </tr>
+    </tbody>
 </table>
+
+<script src="js/login.js"></script>
 </body>
 </html>
