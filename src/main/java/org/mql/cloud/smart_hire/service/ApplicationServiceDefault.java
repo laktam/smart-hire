@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.mql.cloud.smart_hire.model.Post;
 import org.mql.cloud.smart_hire.model.Resume;
 import org.mql.cloud.smart_hire.repository.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,14 @@ public class ApplicationServiceDefault implements ApplicationService{
 	private AzureDocumentIntelligenceService azureDocIntelligentService;
 	@Autowired
 	private ResumeRepository resumeRepository;
+	@Autowired
+	private GoogleGeminiService googleGeminiService;
 	
 	public ApplicationServiceDefault() {
 	}
 	
 	@Override
-	public String addApplication(String post, MultipartFile file, String fileUrl) {
+	public String addApplication(Post post, MultipartFile file, String fileUrl) {
 		AnalyzeResult result;
 		try {
 			result = azureDocIntelligentService.analyzeResume(file);
@@ -42,16 +45,32 @@ public class ApplicationServiceDefault implements ApplicationService{
         resume.setPhoneNumber(extractField(result, "Number"));
         resume.setProfile(extractField(result, "Profile"));
         resume.setLocation(extractField(result, "Location"));
-        resume.setEducation(extractField(result, "Education"));
-        resume.setExperience(extractField(result, "Experience"));
-        resume.setSkills(extractField(result, "Skills"));
-        resume.setLanguages(extractField(result, "Languages"));
-        resume.setSoftSkills(extractField(result, "Soft skills"));
-        resume.setProjects(extractField(result, "Projects"));
-        resume.setUrl(extractField(result, "URL"));
-        resume.setPost(post);
-        resume.setPdfLink(fileUrl);
+        
+        String education = extractField(result, "Education");
+        resume.setEducation(googleGeminiService.intelligentFormat(education));
+        
+        String experience = extractField(result, "Experience");
+        resume.setExperience(googleGeminiService.intelligentFormat(experience));
+        
+        String skills = extractField(result, "Skills");
+        resume.setSkills(googleGeminiService.intelligentFormat(skills));
+        
+        String projects = extractField(result, "Projects");
+        resume.setProjects(googleGeminiService.intelligentFormat(projects));
 
+        resume.setLanguages(googleGeminiService.intelligentFormat(extractField(result, "Languages")));
+        resume.setSoftSkills(googleGeminiService.intelligentFormat(extractField(result, "Soft skills")));
+        resume.setUrl(extractField(result, "URL"));
+        resume.setPost(post.getPostName());
+        resume.setPdfLink(fileUrl);
+        
+        String applicationString = "Education : " + education + " , experience : " + experience + " , skills : "
+        		+ skills + " , projects : " + projects;
+        
+        
+        String matchingScore = googleGeminiService.matchApplicationToPost(applicationString, post);
+        resume.setMatchingScore(matchingScore);
+        
         resumeRepository.save(resume);
 		return "Resume analyzed and added to MongoDB";
 	}
@@ -74,6 +93,11 @@ public class ApplicationServiceDefault implements ApplicationService{
 	@Override
 	public List<Resume> getPosts() {
 		return resumeRepository.findDistinctPosts();
+	}
+
+	@Override
+	public Resume getResumeById(String id) {
+		return resumeRepository.findById(id).get();
 	}
 
 }
