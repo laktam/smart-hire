@@ -98,8 +98,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault();
                 localStorage.setItem('isLoggedIn', 'false');
                 
+				window.location.href = "/offers";
                 // Reload to ensure state is updated across all pages
-                window.location.reload();
+                // window.location.reload();
             }
         });
     }
