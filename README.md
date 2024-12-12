@@ -1,5 +1,5 @@
 # Smart Hire
-Smart Hire is a cloud-based recruitment platform designed to seamlessly connect job seekers and recruiters. It leverages Azure's cloud infrastructure, Docker containers, Spring Boot application, and powerful tools like Azure Blob Storage, Document Intelligence, and Cosmos DB.
+Smart Hire is a cloud-based recruitment platform designed to seamlessly connect job seekers and recruiters. It leverages Azure's cloud infrastructure, Document Intelligence for smart data extraction, Gemini AI for smart matching, and other technologies like Spring Boot, Azure Blob Storage, Cosmos DB and Docker.
 
 ## Features
 1. Job Seeker Portal: Enables job seekers to upload their PDF resumes without entering any additional information.
