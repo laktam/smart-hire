@@ -35,7 +35,7 @@ public class ApplicationsController {
 	        try {
 	            String fileUrl = blobStorageService.uploadFile(file);
 	            Post post = postService.getPostByName(postName);
-	            applicationService.addApplication(post, file, fileUrl);
+	            applicationService.addApplication(post, fileUrl);
 	            
 	            return ResponseEntity.ok(Collections.singletonMap("url", fileUrl));
 	        } catch (IOException e) {

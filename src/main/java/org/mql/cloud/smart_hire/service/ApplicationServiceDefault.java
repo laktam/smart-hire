@@ -29,10 +29,10 @@ public class ApplicationServiceDefault implements ApplicationService{
 	}
 	
 	@Override
-	public String addApplication(Post post, MultipartFile file, String fileUrl) {
+	public String addApplication(Post post, String fileUrl) {
 		AnalyzeResult result;
 		try {
-			result = azureDocIntelligentService.analyzeResume(file);
+			result = azureDocIntelligentService.analyzeResume(fileUrl);
 		} catch (InterruptedException | IOException e) {
 			e.printStackTrace();
 			return "Error analyzing resume";

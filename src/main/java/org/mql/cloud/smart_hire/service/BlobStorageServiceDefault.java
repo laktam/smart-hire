@@ -20,8 +20,8 @@ import jakarta.annotation.PostConstruct;
 @Service
 public class BlobStorageServiceDefault implements BlobStorageService {
 	
-	@Autowired
-	private AzureDocumentIntelligenceService azureDocIntelligentService;
+//	@Autowired
+//	private AzureDocumentIntelligenceService azureDocIntelligentService;
 
 	@Value("${azure.storage.connection-string}")
 	private String connectionString;
@@ -46,12 +46,14 @@ public class BlobStorageServiceDefault implements BlobStorageService {
 			blobClient.upload(inputStream, file.getSize(), true);
 			blobClient.setHttpHeaders(new BlobHttpHeaders().setContentType("application/pdf"));
 		}
-		try {
-			azureDocIntelligentService.analyzeResume(file);
-		} catch (InterruptedException | IOException e) {
-			e.printStackTrace();
-		}
 		
-		return blobClient.getBlobUrl();
+		String resumeUrl = blobClient.getBlobUrl();
+//		try {
+//			azureDocIntelligentService.analyzeResume(resumeUrl);
+//		} catch (InterruptedException | IOException e) {
+//			e.printStackTrace();
+//		}
+		
+		return resumeUrl;
 	}
 }

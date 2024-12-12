@@ -29,34 +29,36 @@ public class AzureDocumentIntelligenceService {
 	@Value("${azure.form.recognizer.api-key}")
 	private String apiKey;
 
-	public AnalyzeResult analyzeResume(MultipartFile resumeFile) throws InterruptedException, IOException {
+	//MultipartFile resumeFile
+	public AnalyzeResult analyzeResume(String resumeUrl) throws InterruptedException, IOException {
 
-		if (resumeFile == null) {
-			throw new IllegalArgumentException("MultipartFile is null");
-		}
-
-		System.out.println("Analyzing resume file");
-		System.out.println("File name: " + resumeFile.getOriginalFilename());
-		System.out.println("File size: " + resumeFile.getSize());
-		System.out.println("File is empty: " + resumeFile.isEmpty());
-
-		// Additional check before getting bytes
-		if (resumeFile.getSize() == 0) {
-			throw new IllegalArgumentException("File is empty");
-		}
+//		if (resumeFile == null) {
+//			throw new IllegalArgumentException("MultipartFile is null");
+//		}
+//
+//		System.out.println("Analyzing resume file");
+//		System.out.println("File name: " + resumeFile.getOriginalFilename());
+//		System.out.println("File size: " + resumeFile.getSize());
+//		System.out.println("File is empty: " + resumeFile.isEmpty());
+//
+//		// Additional check before getting bytes
+//		if (resumeFile.getSize() == 0) {
+//			throw new IllegalArgumentException("File is empty");
+//		}
 
 		// Convert MultipartFile to byte array
-		byte[] resumeBytes = resumeFile.getBytes();
+//		byte[] resumeBytes = resumeFile.getBytes();
 		// Convert byte array into BinaryData for Azure SDK
 //		BinaryData resumeData = BinaryData.fromStream(new ByteArrayInputStream(resumeBytes));
-	    BinaryData resumeData = BinaryData.fromBytes(resumeBytes);
+//	    BinaryData resumeData = BinaryData.fromBytes(resumeBytes);
 
 		// Initialize the DocumentAnalysisClient with the endpoint and credentials
 		DocumentAnalysisClient client = new DocumentAnalysisClientBuilder().endpoint(endpoint)
 				.credential(new AzureKeyCredential(apiKey)).buildClient();
 
 		// Begin analyzing the document with the prebuilt model
-		AnalyzeResult result = client.beginAnalyzeDocument("resume-model-2", resumeData).getFinalResult(); // Get
+//		AnalyzeResult result = client.beginAnalyzeDocument("resume-model-2", resumeData).getFinalResult(); // Get
+		AnalyzeResult result = client.beginAnalyzeDocumentFromUrl("resume-model-2", resumeUrl).getFinalResult(); // Get
 																													// the
 																													// final
 																													// result
