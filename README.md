@@ -32,6 +32,7 @@ Smart Hire is a cloud-based recruitment platform designed to seamlessly connect 
 3. Azure Services:
     - Blob Storage: Securely stores resumes.
     - Document Intelligence: Extracts raw text from resumes.
+        - We trained custom azure document intelligence model on our resumes.
     - Cosmos DB: Stores extracted and processed data.
     - Azure container registry : To push the docker image
     - application containers : To run the container
